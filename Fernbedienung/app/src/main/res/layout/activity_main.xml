@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/flipButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/mirror"
         android:onClick="buttonClick"
@@ -18,8 +18,8 @@
 
     <Button
         android:id="@+id/pipButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginEnd="100dp"
         android:layout_marginStart="100dp"
         android:background="@drawable/pip"
@@ -30,8 +30,8 @@
 
     <Button
         android:id="@+id/settingsButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:background="@drawable/settings"
         android:onClick="buttonClick"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,10 +39,9 @@
 
     <Button
         android:id="@+id/nightButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/nightmode"
         android:onClick="buttonClick"
         app:layout_constraintStart_toStartOf="@+id/flipButton"
@@ -50,8 +49,8 @@
 
     <Button
         android:id="@+id/favoritesButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginEnd="55dp"
         android:background="@drawable/favorites"
         android:onClick="buttonClick"
@@ -115,8 +114,8 @@
 
     <ImageView
         android:id="@+id/plusIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -130,8 +129,8 @@
 
     <ImageView
         android:id="@+id/playIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -145,8 +144,8 @@
 
     <ImageView
         android:id="@+id/minusIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
