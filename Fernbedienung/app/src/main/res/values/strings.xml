@@ -6,4 +6,9 @@
     <string name="channelPlusButton">+</string>
     <string name="channelMinusButton">-</string>
     <string name="IP">IP</string>
+    <string name="ChannelPlus">Channel Plus</string>
+    <string name="ChannelMinus">Channel Minus</string>
+    <string name="PlayPause">Play / Pause Timeshift</string>
+    <string name="SearchChannels">Search for Channels</string>
+    <string name="ResetFavorites">Reset Favorites</string>
 </resources>

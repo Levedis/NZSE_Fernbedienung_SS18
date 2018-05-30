@@ -66,7 +66,6 @@
         android:max="2500"
         android:maxHeight="100dp"
         android:minHeight="100dp"
-        android:onClick="onVolumeChange"
         android:progress="1250"
         android:rotation="-45"
         android:thumbTint="#89afed"
@@ -113,13 +112,14 @@
         app:srcCompat="@drawable/minus"/>
 
     <ImageView
-        android:id="@+id/plusIcon"
+        android:id="@+id/playIcon"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/PlayPause"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/playButton"
         app:layout_constraintEnd_toEndOf="@+id/playButton"
@@ -128,13 +128,14 @@
         app:srcCompat="@drawable/play" />
 
     <ImageView
-        android:id="@+id/playIcon"
+        android:id="@+id/plusIcon"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/ChannelPlus"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/channelPlusButton"
         app:layout_constraintEnd_toEndOf="@+id/channelPlusButton"
@@ -150,6 +151,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/ChannelMinus"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/channelMinusButton"
         app:layout_constraintEnd_toEndOf="@+id/channelMinusButton"
