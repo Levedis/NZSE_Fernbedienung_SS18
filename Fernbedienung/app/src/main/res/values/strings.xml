@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TiehWie</string>
+    <string name="flipButton">Flip</string>
+    <string name="settingsButton">Settings</string>
+    <string name="playButton">-></string>
+    <string name="channelPlusButton">+</string>
+    <string name="channelMinusButton">-</string>
+    <string name="IP">IP</string>
+</resources>

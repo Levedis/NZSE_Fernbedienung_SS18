@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PicInPic">
+
+    <Button
+        android:id="@+id/aspectRatioButton"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/pip"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.269"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/PicInPicButton"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/pip2"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.741"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/aspectRatioButton" />
+
+    <Button
+        android:id="@+id/ReverseButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/reversearrows"
+        android:text=""
+        app:layout_constraintEnd_toStartOf="@+id/PicInPicButton"
+        app:layout_constraintStart_toStartOf="@+id/aspectRatioButton"
+        app:layout_constraintTop_toBottomOf="@+id/aspectRatioButton" />
+
+    <Button
+        android:id="@+id/CancelButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/cancel"
+        android:elevation="0dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@+id/PicInPicButton"
+        app:layout_constraintStart_toEndOf="@+id/aspectRatioButton"
+        app:layout_constraintTop_toTopOf="@+id/ReverseButton" />
+</android.support.constraint.ConstraintLayout>
