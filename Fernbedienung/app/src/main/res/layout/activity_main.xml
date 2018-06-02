@@ -7,12 +7,12 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/flipButton"
+        android:id="@+id/flipButtonRight"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/mirror"
-        android:onClick="buttonClick"
+        android:onClick="mirrorScreen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +26,7 @@
         android:onClick="buttonClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/flipButton" />
+        app:layout_constraintTop_toTopOf="@+id/flipButtonRight" />
 
     <Button
         android:id="@+id/settingsButton"
@@ -35,7 +35,7 @@
         android:background="@drawable/settings"
         android:onClick="buttonClick"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/flipButton" />
+        app:layout_constraintTop_toTopOf="@+id/flipButtonRight" />
 
     <Button
         android:id="@+id/nightButton"
@@ -44,8 +44,8 @@
         android:layout_marginStart="55dp"
         android:background="@drawable/nightmode"
         android:onClick="buttonClick"
-        app:layout_constraintStart_toStartOf="@+id/flipButton"
-        app:layout_constraintTop_toBottomOf="@+id/flipButton" />
+        app:layout_constraintStart_toStartOf="@+id/flipButtonRight"
+        app:layout_constraintTop_toBottomOf="@+id/flipButtonRight" />
 
     <Button
         android:id="@+id/favoritesButton"

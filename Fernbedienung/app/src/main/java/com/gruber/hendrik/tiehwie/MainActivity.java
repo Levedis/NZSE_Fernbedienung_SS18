@@ -1,6 +1,8 @@
 package com.gruber.hendrik.tiehwie;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +14,8 @@ import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button flipButton;
+    private Button mirrorScreenRight;
+    private Button mirrorScreenLeft;
     private Button settingsButton;
     private Button favoritesButton;
     private Button pipButton;
@@ -21,31 +24,39 @@ public class MainActivity extends AppCompatActivity {
     private Button channelPlusButton;
     private Button channelMinusButton;
     private SeekBar volumeSlider;
-    private int volumeValue;
+
+    private boolean rightHanded;
+
+    @Override
+    //Get Buttons new when orientation is changed. Musst be done to work with orientation switching
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            getButtons();
+
+        }else if (newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
+            getButtons();
+        }
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         //Get Buttons
-        flipButton = (Button) findViewById(R.id.flipButton);
-        settingsButton = (Button) findViewById(R.id.settingsButton);
-        favoritesButton = (Button) findViewById(R.id.favoritesButton);
-        pipButton = (Button) findViewById(R.id.pipButton);
-        nightModeButton = (Button) findViewById(R.id.nightButton);
+        getButtons();
 
-        playButton = (Button) findViewById(R.id.playButton);
-        channelPlusButton = (Button) findViewById(R.id.channelPlusButton);
-        channelMinusButton = (Button) findViewById(R.id.channelMinusButton);
-        volumeSlider = (SeekBar) findViewById(R.id.volumeSlider);
-
+        rightHanded = true;
     }
 
+
+
     public void buttonClick(View v){
-        if(v == flipButton){
-            Log.i("Button Clicked:", "Flip");
-        }
         if(v == settingsButton){
             Log.i("Button Clicked:", "Settings");
             startActivity(new Intent(this, MainSettings.class));
@@ -72,10 +83,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onVolumeChange(SeekBar v){
-        volumeValue = v.getProgress();
-        String volumeValueString = "Volume: " + Integer.toString(volumeValue);
-        Log.i("Slider Changed: ", volumeValueString);
+    public void getButtons(){
+        mirrorScreenRight = (Button) findViewById(R.id.flipButtonRight);
+        mirrorScreenLeft = (Button) findViewById(R.id.flipButtonLeft);
+        settingsButton = (Button) findViewById(R.id.settingsButton);
+        favoritesButton = (Button) findViewById(R.id.favoritesButton);
+        pipButton = (Button) findViewById(R.id.pipButton);
+        nightModeButton = (Button) findViewById(R.id.nightButton);
+
+        playButton = (Button) findViewById(R.id.playButton);
+        channelPlusButton = (Button) findViewById(R.id.channelPlusButton);
+        channelMinusButton = (Button) findViewById(R.id.channelMinusButton);
+        volumeSlider = (SeekBar) findViewById(R.id.volumeSlider);
     }
 
-}
+    public void mirrorScreen(View view){
+        if(!rightHanded){
+            rightHanded = true;
+            setContentView(R.layout.activity_main);
+            getButtons();
+            Log.i("Flipped: ", "Right");
+        }
+        else{
+            rightHanded = false;
+            setContentView(R.layout.activity_main_left);
+            getButtons();
+            Log.i("Flipped: ", "Left");
+        }
+
+
+    }
+
+
+}   //End of File
