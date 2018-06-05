@@ -33,10 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar volumeSlider;
 
     private boolean rightHanded;
-    private boolean isPaused;
-    CountUpTimer countUp;
+    public static String ipConnect = "";
 
-    private HttpRequest request;
+    ConnectionHandler connect;
 
     @Override
     //Get Buttons new when orientation is changed. Musst be done to work with orientation switching
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -64,19 +64,17 @@ public class MainActivity extends AppCompatActivity {
         //Default Layout is right-handed-mode
         rightHanded = true;
 
-        //TV is playing by default
-        isPaused = false;
+        //ConnectionHander
+        connect = new ConnectionHandler();
 
-        //Make HTTP Request
-        request = new HttpRequest("192.168.2.107", 1000, true);
-        //request = new HttpRequest("10.0.0.2", 1000, false);
+        if(ipConnect == ""){
+            Intent initialiseIp = new Intent(MainActivity.this, MainSettings.class);
+            initialiseIp.putExtra("newIp",ipConnect);
+            startActivity(initialiseIp);
+        }
 
-        //Initialize Counter for Timeshift
-        countUp = new CountUpTimer();
-
+        connect.establishConnection(ipConnect);
     }
-
-
 
     public void buttonClick(View v) throws IOException, JSONException {
         if(v == settingsButton){
@@ -96,16 +94,15 @@ public class MainActivity extends AppCompatActivity {
         }
         if(v == playButton){
             Log.i("Button Clicked:", "Play/Pause");
-            playPause();
-
+            connect.playPause();
         }
         if(v == channelPlusButton){
             Log.i("Button Clicked:", "Channel++");
-            channelPlus();
+            connect.channelPlus();
         }
         if(v == channelMinusButton){
             Log.i("Button Clicked:", "Channel--");
-            channelMinus();
+            connect.channelMinus();
         }
     }
 
@@ -143,55 +140,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-    //Timeshift Control
-    public void playPause(){
-        if(!isPaused){
-            try {
-                //Pause Request sent to TV
-                request.execute("timeShiftPause=");
-            }
-            catch(IOException e){}
-            catch(JSONException je){}
-
-            isPaused = true;
-            countUp.startCounting();
-        } else {
-            isPaused = false;
-            countUp.stopCounting();
-            long timer = countUp.getTime();
-            String strLong = Long.toString(timer);
-            try {
-                //Play Request sent to TV with Timestamp
-                request.execute("timeShiftPlay=" + strLong);
-                Log.i("Timer: ", strLong);
-            }
-            catch(IOException e){}
-            catch(JSONException je){}
-            
-        }
-
-    }
-
-    //+ Button
-    public void channelPlus(){
-        try {
-            //Channel ++ Request sent to TV
-            request.execute("channelMain=8b");
-        }
-        catch(IOException e){}
-        catch(JSONException je){}
-    }
-
-    //- Button
-    public void channelMinus(){
-        try {
-            //Channel -- Request sent to TV
-            request.execute("channelMain=8a");
-        }
-        catch(IOException e){}
-        catch(JSONException je){}
-    }
-
 
 }   //End of File

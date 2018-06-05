@@ -30,7 +30,8 @@
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/IPText"
-        app:layout_constraintTop_toTopOf="@+id/IPText" />
+        app:layout_constraintTop_toTopOf="@+id/IPText"
+        android:singleLine="true" />
 
     <Button
         android:id="@+id/powerButton"
@@ -49,9 +50,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/ResetFavorites"
-        app:layout_constraintEnd_toEndOf="@+id/IPInput"
+        app:layout_constraintEnd_toEndOf="@+id/favoritesReset"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/IPText"
+        app:layout_constraintStart_toStartOf="@+id/favoritesReset"
         app:layout_constraintTop_toBottomOf="@+id/favoritesReset" />
 
     <Button
@@ -60,8 +61,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/SearchChannels"
-        app:layout_constraintEnd_toEndOf="@+id/IPInput"
+        app:layout_constraintEnd_toEndOf="@+id/connectNewIp"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/connectNewIp"
+        app:layout_constraintTop_toBottomOf="@+id/connectNewIp" />
+
+    <Button
+        android:id="@+id/connectNewIp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/NewIpConnect"
+        android:onClick="changeIP"
+        app:layout_constraintEnd_toEndOf="@+id/IPInput"
         app:layout_constraintStart_toStartOf="@+id/IPText"
         app:layout_constraintTop_toBottomOf="@+id/IPInput" />
 </android.support.constraint.ConstraintLayout>

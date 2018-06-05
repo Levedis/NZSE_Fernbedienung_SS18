@@ -25,7 +25,6 @@
         <activity android:name=".ChannelList" />
         <activity android:name=".MainSettings" />
         <activity android:name=".PicInPic"></activity>
-
     </application>
 
 </manifest>
