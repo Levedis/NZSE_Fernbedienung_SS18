@@ -1,6 +1,7 @@
 package com.gruber.hendrik.tiehwie;
 
 import android.content.res.Configuration;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,12 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.content.Intent;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar volumeSlider;
 
     private boolean rightHanded;
+    private boolean isPaused;
+    CountUpTimer countUp;
+
+    private HttpRequest request;
 
     @Override
     //Get Buttons new when orientation is changed. Musst be done to work with orientation switching
@@ -39,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
             getButtons();
         }
 
-
     }
 
     @Override
@@ -51,12 +61,24 @@ public class MainActivity extends AppCompatActivity {
         //Get Buttons
         getButtons();
 
+        //Default Layout is right-handed-mode
         rightHanded = true;
+
+        //TV is playing by default
+        isPaused = false;
+
+        //Make HTTP Request
+        request = new HttpRequest("192.168.2.107", 1000, true);
+        //request = new HttpRequest("10.0.0.2", 1000, false);
+
+        //Initialize Counter for Timeshift
+        countUp = new CountUpTimer();
+
     }
 
 
 
-    public void buttonClick(View v){
+    public void buttonClick(View v) throws IOException, JSONException {
         if(v == settingsButton){
             Log.i("Button Clicked:", "Settings");
             startActivity(new Intent(this, MainSettings.class));
@@ -74,15 +96,21 @@ public class MainActivity extends AppCompatActivity {
         }
         if(v == playButton){
             Log.i("Button Clicked:", "Play/Pause");
+            playPause();
+
         }
         if(v == channelPlusButton){
             Log.i("Button Clicked:", "Channel++");
+            channelPlus();
         }
         if(v == channelMinusButton){
             Log.i("Button Clicked:", "Channel--");
+            channelMinus();
         }
     }
 
+    /*  Gets all Buttons on the main
+        screen and assigns them to variables    */
     public void getButtons(){
         mirrorScreenRight = (Button) findViewById(R.id.flipButtonRight);
         mirrorScreenLeft = (Button) findViewById(R.id.flipButtonLeft);
@@ -97,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         volumeSlider = (SeekBar) findViewById(R.id.volumeSlider);
     }
 
+    /*  Switches Mirror-Mode in portrait and landscape mode
+        by changing the layout xml files    */
     public void mirrorScreen(View view){
         if(!rightHanded){
             rightHanded = true;
@@ -112,6 +142,55 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    //Timeshift Control
+    public void playPause(){
+        if(!isPaused){
+            try {
+                //Pause Request sent to TV
+                request.execute("timeShiftPause=");
+            }
+            catch(IOException e){}
+            catch(JSONException je){}
+
+            isPaused = true;
+            countUp.startCounting();
+        } else {
+            isPaused = false;
+            countUp.stopCounting();
+            long timer = countUp.getTime();
+            String strLong = Long.toString(timer);
+            try {
+                //Play Request sent to TV with Timestamp
+                request.execute("timeShiftPlay=" + strLong);
+                Log.i("Timer: ", strLong);
+            }
+            catch(IOException e){}
+            catch(JSONException je){}
+            
+        }
+
+    }
+
+    //+ Button
+    public void channelPlus(){
+        try {
+            //Channel ++ Request sent to TV
+            request.execute("channelMain=8b");
+        }
+        catch(IOException e){}
+        catch(JSONException je){}
+    }
+
+    //- Button
+    public void channelMinus(){
+        try {
+            //Channel -- Request sent to TV
+            request.execute("channelMain=8a");
+        }
+        catch(IOException e){}
+        catch(JSONException je){}
     }
 
 
