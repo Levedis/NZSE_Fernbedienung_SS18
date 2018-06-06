@@ -1,5 +1,7 @@
 package com.gruber.hendrik.tiehwie;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,12 +13,20 @@ import android.content.Intent;
 import java.nio.channels.Channel;
 import java.sql.Connection;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.Toast;
+
 public class MainSettings extends AppCompatActivity {
 
     Button powerButton;
     EditText ipInput;
 
-    ConnectionHandler connect;
+    private ConnectionHandler connect;
 
     String input = "";
 
@@ -29,8 +39,6 @@ public class MainSettings extends AppCompatActivity {
         ipInput = (EditText) findViewById(R.id.IPInput);
 
         connect = new ConnectionHandler();
-
-
     }
 
     public void changeIP(View v){
@@ -41,6 +49,12 @@ public class MainSettings extends AppCompatActivity {
     }
     public String getIp(){
         return input;
+    }
+
+    public void scanChannels(View v){
+        Log.i("Button Pressed: ", "Scanning Channels...");
+        connect.channelScan();
+        //startActivity(new Intent(this, ChannelList.class));    //Jump To Channel List Activity after done Scaning Channels
     }
 
     public void shutDown(View v){

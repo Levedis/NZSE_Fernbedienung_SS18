@@ -2,6 +2,8 @@ package com.gruber.hendrik.tiehwie;
 
 import android.util.Log;
 import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -19,15 +21,11 @@ public class ConnectionHandler {
     private HttpRequest request;
     private MainSettings settings = new MainSettings();
 
+    private String currentIp = "192.168.2.107";
+
     ConnectionHandler(){
         //TV is playing by default
         isPaused = false;
-
-        //Get IP Address From Settings Menu
-        String newIp = settings.getIp();
-
-        //Establish TV Connection
-        establishConnection("");
 
         //Initialize Counter for Timeshift
         countUp = new CountUpTimer();
@@ -87,7 +85,20 @@ public class ConnectionHandler {
         catch(JSONException je){}
     }
 
+    //Channel Scanning
+    public void channelScan(){
+        try {
+            //Channel -- Request sent to TV
+            Log.i("Current IP", currentIp);
+            establishConnection(currentIp);
+            JSONObject getConsole = request.execute("scanChannels=");
+            Log.i("Console", getConsole.toString());
 
+        }
+        catch(IOException e){}
+        catch(JSONException je){}
+
+    }
 
 
 }

@@ -46,21 +46,22 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/channelSearch"
+        android:id="@+id/favoritesReset"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/ResetFavorites"
-        app:layout_constraintEnd_toEndOf="@+id/favoritesReset"
+        app:layout_constraintEnd_toEndOf="@+id/channelSearch"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/favoritesReset"
-        app:layout_constraintTop_toBottomOf="@+id/favoritesReset" />
+        app:layout_constraintStart_toStartOf="@+id/channelSearch"
+        app:layout_constraintTop_toBottomOf="@+id/channelSearch" />
 
     <Button
-        android:id="@+id/favoritesReset"
+        android:id="@+id/channelSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/SearchChannels"
+        android:onClick="scanChannels"
         app:layout_constraintEnd_toEndOf="@+id/connectNewIp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/connectNewIp"

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean rightHanded;
     public static String ipConnect = "";
 
-    ConnectionHandler connect;
+    private ConnectionHandler connect;
 
     @Override
     //Get Buttons new when orientation is changed. Musst be done to work with orientation switching
