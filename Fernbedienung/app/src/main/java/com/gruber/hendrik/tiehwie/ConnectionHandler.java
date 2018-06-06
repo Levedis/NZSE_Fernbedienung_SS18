@@ -1,11 +1,14 @@
 package com.gruber.hendrik.tiehwie;
 
+import android.app.Application;
 import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
+import android.content.Context;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,9 @@ public class ConnectionHandler {
     CountUpTimer countUp;
     private HttpRequest request;
     private MainSettings settings = new MainSettings();
+    private PersistenceHandler persistenceHandler = new PersistenceHandler();
+
+    private Context context;
 
     private String currentIp = "192.168.2.107";
 
@@ -94,6 +100,8 @@ public class ConnectionHandler {
             JSONObject getConsole = request.execute("scanChannels=");
             Log.i("Console", getConsole.toString());
 
+            //Calls Persistence Handler to save JSON Objects from the Channel List
+            persistenceHandler.writeToChannels(getConsole.toString());
         }
         catch(IOException e){}
         catch(JSONException je){}
