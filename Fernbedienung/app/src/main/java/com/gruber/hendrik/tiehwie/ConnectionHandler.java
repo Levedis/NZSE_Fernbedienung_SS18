@@ -8,6 +8,9 @@ import org.json.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 
 import android.content.Intent;
@@ -25,9 +28,12 @@ public class ConnectionHandler {
     private MainSettings settings = new MainSettings();
     private PersistenceHandler persistenceHandler = new PersistenceHandler();
 
-    private Context context;
-
+    private String currentChannel = "8a";
     private String currentIp = "192.168.2.107";
+
+    private int currentIndex = 0;
+    private static ArrayList<String> channels = new ArrayList<>();
+
 
     ConnectionHandler(){
         //TV is playing by default
@@ -73,22 +79,51 @@ public class ConnectionHandler {
 
     //+ Button
     public void channelPlus(){
-        try {
-            //Channel ++ Request sent to TV
-            request.execute("channelMain=8b");
+        String nextChannel = "";
+        if(currentIndex < 33){
+            currentIndex = getChannelIndex() + 1;
+            nextChannel = channels.get(currentIndex);
+            try {
+                Log.i("Next", nextChannel);
+                //Channel ++ Request sent to TV
+                request.execute("channelMain=" + nextChannel);
+                currentChannel = nextChannel;
+            }
+            catch(IOException e){}
+            catch(JSONException je){}
+        } else {
+            Log.i("Error", "Channel++ Overflow");
         }
-        catch(IOException e){}
-        catch(JSONException je){}
     }
 
     //- Button
     public void channelMinus(){
-        try {
-            //Channel -- Request sent to TV
-            request.execute("channelMain=8a");
+        String nextChannel = "";
+        if(currentIndex > 0){
+            currentIndex = getChannelIndex() - 1;
+            nextChannel = channels.get(currentIndex);
+            try {
+                Log.i("Next", nextChannel);
+                //Channel ++ Request sent to TV
+                request.execute("channelMain=" + nextChannel);
+                currentChannel = nextChannel;
+            }
+            catch(IOException e){}
+            catch(JSONException je){}
+        } else {
+            Log.i("Error", "Channel++ Overflow");
         }
-        catch(IOException e){}
-        catch(JSONException je){}
+    }
+
+    public int getChannelIndex(){
+        channels = persistenceHandler.channelList;
+        if(channels.contains(currentChannel)){
+            Log.i("Contains?", "yes");
+            return channels.indexOf(currentChannel);
+        } else {
+            Log.i("Contains?", "no");
+        }
+        return 0;
     }
 
     //Channel Scanning
@@ -98,10 +133,10 @@ public class ConnectionHandler {
             Log.i("Current IP", currentIp);
             establishConnection(currentIp);
             JSONObject getConsole = request.execute("scanChannels=");
-            Log.i("Console", getConsole.toString());
+            //Log.i("Console", getConsole.toString());
 
             //Calls Persistence Handler to save JSON Objects from the Channel List
-            persistenceHandler.writeToChannels(getConsole.toString());
+            persistenceHandler.saveChannels(getConsole);
         }
         catch(IOException e){}
         catch(JSONException je){}

@@ -24,6 +24,9 @@ import android.widget.Toast;
 public class MainSettings extends AppCompatActivity {
 
     Button powerButton;
+    Button connectIp;
+    Button scanChannels;
+    Button resetFavs;
     EditText ipInput;
 
     private ConnectionHandler connect;
@@ -36,6 +39,9 @@ public class MainSettings extends AppCompatActivity {
         setContentView(R.layout.activity_main_settings);
 
         powerButton = (Button) findViewById(R.id.powerButton);
+        connectIp = (Button) findViewById(R.id.connectNewIp);
+        scanChannels = (Button) findViewById(R.id.channelSearch);
+        resetFavs = (Button) findViewById(R.id.favoritesReset);
         ipInput = (EditText) findViewById(R.id.IPInput);
 
         connect = new ConnectionHandler();
@@ -45,6 +51,11 @@ public class MainSettings extends AppCompatActivity {
         Log.i("Button Pressed: ", "Change IP");
         input = ipInput.getText().toString();   //Read from EditText
         MainActivity.ipConnect = input; //Direct access to ipConnect because it's a public static
+
+        if(PersistenceHandler.channelList.size() == 0){
+            scanChannels(scanChannels);
+        }
+
         startActivity(new Intent(this, MainActivity.class));    //Jump To Main Activity after done inputting IP
     }
     public String getIp(){
