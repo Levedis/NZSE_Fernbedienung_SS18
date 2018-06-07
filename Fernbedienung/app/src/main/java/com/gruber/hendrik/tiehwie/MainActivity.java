@@ -1,5 +1,7 @@
 package com.gruber.hendrik.tiehwie;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,12 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Persistence
+    private SharedPreferences preferenceSettings;
+    private SharedPreferences.Editor preferenceEditor;
+    private static final int PREFERENCE_MODE_PRIVATE = 0;
+    //___________
+
     private Button mirrorScreenRight;
     private Button mirrorScreenLeft;
     private Button settingsButton;
@@ -34,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean rightHanded;
     public static String ipConnect = "";
+    public static String lastChannel = "";
 
     private ConnectionHandler connect;
 
@@ -66,42 +75,27 @@ public class MainActivity extends AppCompatActivity {
 
         //ConnectionHander
         connect = new ConnectionHandler();
-
-        if(ipConnect == ""){
-            Intent initialiseIp = new Intent(MainActivity.this, MainSettings.class);
-            initialiseIp.putExtra("newIp",ipConnect);
-            startActivity(initialiseIp);
-        }
-
-        connect.establishConnection(ipConnect);
     }
 
     public void buttonClick(View v) throws IOException, JSONException {
         if(v == settingsButton){
-            Log.i("Button Clicked:", "Settings");
             startActivity(new Intent(this, MainSettings.class));
         }
         if(v == favoritesButton){
-            Log.i("Button Clicked:", "Favorites");
             startActivity(new Intent(this, ChannelList.class));
         }
         if(v == pipButton){
-            Log.i("Button Clicked:", "Picture in Picture Settings");
             startActivity(new Intent(this, PicInPic.class));
         }
         if(v == nightModeButton){
-            Log.i("Button Clicked:", "Night Mode Toggle");
         }
         if(v == playButton){
-            Log.i("Button Clicked:", "Play/Pause");
             connect.playPause();
         }
         if(v == channelPlusButton){
-            Log.i("Button Clicked:", "Channel++");
             connect.channelPlus();
         }
         if(v == channelMinusButton){
-            Log.i("Button Clicked:", "Channel--");
             connect.channelMinus();
         }
     }

@@ -30,7 +30,7 @@ public class PersistenceHandler{
 
     public static ArrayList<String> channelList = new ArrayList<>();
 
-    public void saveChannels(JSONObject channels){
+    public static void saveChannels(JSONObject channels){
 
         try {
             JSONArray parentArray = channels.getJSONArray("channels");

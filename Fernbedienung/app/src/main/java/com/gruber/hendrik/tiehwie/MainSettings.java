@@ -1,5 +1,6 @@
 package com.gruber.hendrik.tiehwie;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,12 @@ import android.widget.Toast;
 
 public class MainSettings extends AppCompatActivity {
 
+    //Persistence
+    private SharedPreferences preferenceSettings;
+    private SharedPreferences.Editor preferenceEditor;
+    private static final int PREFERENCE_MODE_PRIVATE = 0;
+    //___________
+
     Button powerButton;
     Button connectIp;
     Button scanChannels;
@@ -31,7 +38,7 @@ public class MainSettings extends AppCompatActivity {
 
     private ConnectionHandler connect;
 
-    String input = "";
+    public static String input = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,31 +52,50 @@ public class MainSettings extends AppCompatActivity {
         ipInput = (EditText) findViewById(R.id.IPInput);
 
         connect = new ConnectionHandler();
+
+        loadIp();
+        if(!input.equals("")){
+            ipInput.setText(input);
+        }
     }
 
     public void changeIP(View v){
-        Log.i("Button Pressed: ", "Change IP");
         input = ipInput.getText().toString();   //Read from EditText
+        saveIp();   //Save new IP Address
         MainActivity.ipConnect = input; //Direct access to ipConnect because it's a public static
-
-        if(PersistenceHandler.channelList.size() == 0){
-            scanChannels(scanChannels);
-        }
-
-        startActivity(new Intent(this, MainActivity.class));    //Jump To Main Activity after done inputting IP
+        ConnectionHandler.currentIp = input;
+        if(PersistenceHandler.channelList.size() != 0)
+            startActivity(new Intent(this, MainActivity.class));    //Jump To Main Activity after done inputting IP
     }
     public String getIp(){
+        loadIp();
         return input;
     }
 
-    public void scanChannels(View v){
-        Log.i("Button Pressed: ", "Scanning Channels...");
-        connect.channelScan();
-        //startActivity(new Intent(this, ChannelList.class));    //Jump To Channel List Activity after done Scaning Channels
+    public void callChannelScan(View v){
+        scanChannels();
+    }
+
+    public void scanChannels(){
+        ConnectionHandler.channelScan();
+        if(PersistenceHandler.channelList.size() != 0)
+            startActivity(new Intent(this, MainActivity.class));
     }
 
     public void shutDown(View v){
         finish();
         System.exit(0);
+    }
+
+    public void saveIp(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        preferenceEditor.putString("IP Address", input);
+        preferenceEditor.commit();
+    }
+
+    public void loadIp(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        input = preferenceSettings.getString("IP Address", "");
     }
 }
