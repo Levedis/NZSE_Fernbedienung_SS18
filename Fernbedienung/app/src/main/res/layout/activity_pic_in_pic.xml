@@ -23,6 +23,7 @@
         android:layout_height="180dp"
         android:background="@drawable/pip2"
         android:text=""
+        android:onClick="togglePip"
         app:layout_constraintEnd_toEndOf="@+id/aspectRatioButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/aspectRatioButton"

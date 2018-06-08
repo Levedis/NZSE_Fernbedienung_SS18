@@ -20,7 +20,9 @@ public class PicInPic extends AppCompatActivity {
     HttpRequest request;
 
     String currentIp = MainSettings.input;
+
     Boolean isZoomed = false;
+    Boolean pipIsOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class PicInPic extends AppCompatActivity {
                     isZoomed = true;
             } else {
                 try {
-                    //Zoom in on Main Picture
+                    //Zoom out of Main Picture
                     request.execute("zoomMain=0");
                 }
                 catch(IOException e){}
@@ -61,6 +63,40 @@ public class PicInPic extends AppCompatActivity {
                 isZoomed = false;
             }
         }
+    }
+
+    private void togglePip(View v){
+        if(!currentIp.equals("")){
+            if(!pipIsOn){
+                try {
+                    //Start Pip
+                    request.execute("showPip=1");
+                }
+                catch(IOException e){}
+                catch(JSONException je){}
+                pipIsOn = true;
+
+                //Select which channel will be displayed in the pip
+                pipChannelSelection();
+
+            } else {
+                try {
+                    //Zoom in on Main Picture
+                    request.execute("showPip=0");
+                }
+                catch(IOException e){}
+                catch(JSONException je){}
+                pipIsOn = false;
+            }
+        }
+    }
+
+    private void pipChannelSelection(){
+        Log.i("TODO", "PiP Channel Select");
+    }
+
+    private void switchPip(View v){
+        Log.i("TODO", "Switch PiP and Main Picture");
     }
 
 

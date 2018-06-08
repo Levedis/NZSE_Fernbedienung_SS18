@@ -29,6 +29,7 @@
         android:layout_marginStart="25dp"
         android:background="@drawable/pip2"
         android:text=""
+        android:onClick="togglePip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.741"
         app:layout_constraintStart_toStartOf="parent"
