@@ -29,6 +29,7 @@
         android:layout_marginStart="25dp"
         android:background="@drawable/pip2"
         android:text=""
+        android:onClick="togglePip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.741"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +43,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/reverse"
         android:text=""
+        android:onClick="switchPip"
         app:layout_constraintEnd_toStartOf="@+id/PicInPicButton"
         app:layout_constraintStart_toStartOf="@+id/aspectRatioButton"
         app:layout_constraintTop_toBottomOf="@+id/aspectRatioButton" />

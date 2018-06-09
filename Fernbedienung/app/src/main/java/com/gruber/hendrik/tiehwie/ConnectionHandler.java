@@ -35,7 +35,7 @@ public class ConnectionHandler {
     public static String currentIp = MainSettings.input;
 
     private int currentIndex = 0;
-    private static ArrayList<String> channels = new ArrayList<>();
+    private static ArrayList<String> channels = PersistenceHandler.channelList;
 
     ConnectionHandler(){
         //TV is playing by default
@@ -132,6 +132,7 @@ public class ConnectionHandler {
 
     //Channel Scanning
     public static void channelScan(){
+        currentIp = MainSettings.input;
         if (!currentIp.equals("")){
                 try {
                 //Channel -- Request sent to TV
@@ -147,6 +148,11 @@ public class ConnectionHandler {
             catch(JSONException je){
             }
         }
+        currentIp = MainSettings.input;
 
+    }
+
+    public static String getCurrentChannel(){
+        return currentChannel;
     }
 }

@@ -23,6 +23,7 @@
         android:layout_height="180dp"
         android:background="@drawable/pip2"
         android:text=""
+        android:onClick="togglePip"
         app:layout_constraintEnd_toEndOf="@+id/aspectRatioButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/aspectRatioButton"
@@ -35,6 +36,7 @@
         android:layout_marginStart="35dp"
         android:background="@drawable/reverse"
         android:text=""
+        android:onClick="switchPip"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PicInPicButton" />
 

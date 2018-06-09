@@ -20,7 +20,12 @@ public class PicInPic extends AppCompatActivity {
     HttpRequest request;
 
     String currentIp = MainSettings.input;
+
     Boolean isZoomed = false;
+    Boolean pipIsOn = false;
+
+    private String currentPip = "";
+    public static String currentMain = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +38,27 @@ public class PicInPic extends AppCompatActivity {
         stopPip = (Button) findViewById(R.id.CancelButton);
         switchPip = (Button) findViewById(R.id.ReverseButton);
 
-        //Establish Connection for Requests
-        establishConnection();
+        getIp();
+
+        request = new HttpRequest(currentIp, 1000, true);
     }
 
-    private void establishConnection(){
-        request = new HttpRequest(currentIp, 10000, true);
+    private void getIp(){
+        currentIp = MainSettings.input;
     }
 
-    private void toggleZoom(View v){
+    public void toggleZoom(View v){
+        Log.i("IP", currentIp);
+
         if(!currentIp.equals("")){
             if(!isZoomed){
-                    try {
-                        //Zoom in on Main Picture
-                        request.execute("zoomMain=1");
-                    }
-                    catch(IOException e){}
-                    catch(JSONException je){}
-                    isZoomed = true;
+                try {
+                    //Start Pip
+                    request.execute("zoomMain=1");
+                }
+                catch(IOException e){}
+                catch(JSONException je){}
+                isZoomed = true;
             } else {
                 try {
                     //Zoom in on Main Picture
@@ -63,5 +71,58 @@ public class PicInPic extends AppCompatActivity {
         }
     }
 
+    public void togglePip(View v){
+        if(!currentIp.equals("")){
+            if(!pipIsOn){
+                try {
+                    //Start Pip
+                    request.execute("showPip=1");
+                }
+                catch(IOException e){}
+                catch(JSONException je){}
+                pipIsOn = true;
 
-}//End of PicInPic
+                //Select which channel will be displayed in the pip
+                pipChannelSelection();
+
+            } else {
+                try {
+                    //Zoom in on Main Picture
+                    request.execute("showPip=0");
+                }
+                catch(IOException e){}
+                catch(JSONException je){}
+                pipIsOn = false;
+            }
+        }
+    }
+
+    public void pipChannelSelection(){
+        try{
+            currentPip = "64c";
+            request.execute("channelPip=" + currentPip);
+        }
+        catch(IOException e){}
+        catch(JSONException je){}
+    }
+
+    public void switchPip(View v){
+        if(!currentIp.equals("") && pipIsOn){
+            currentMain = ConnectionHandler.getCurrentChannel();
+            String tempSwap = "";
+            try {
+                //Switch PiP and Main
+                request.execute("channelPip=" + currentMain);
+                request.execute("channelMain=" + currentPip);
+                tempSwap = currentMain;
+                currentMain = currentPip;
+                ConnectionHandler.currentChannel = currentMain;
+                currentPip = tempSwap;
+            }
+            catch(IOException e){}
+            catch(JSONException je){}
+        }
+    }
+
+
+}   //End of PicInPic
