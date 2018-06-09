@@ -22,6 +22,7 @@ public class PicInPic extends AppCompatActivity {
     String currentIp = MainSettings.input;
 
     Boolean isZoomed = false;
+    Boolean pipIsZoomed = false;
     Boolean pipIsOn = false;
 
     private String currentPip = "";
@@ -48,8 +49,6 @@ public class PicInPic extends AppCompatActivity {
     }
 
     public void toggleZoom(View v){
-        Log.i("IP", currentIp);
-
         if(!currentIp.equals("")){
             if(!isZoomed){
                 try {
@@ -121,6 +120,28 @@ public class PicInPic extends AppCompatActivity {
             }
             catch(IOException e){}
             catch(JSONException je){}
+        }
+    }
+
+    public void togglePipZoom(View v){
+        if(!currentIp.equals("")){
+            if(!pipIsZoomed){
+                try {
+                    //Start Pip
+                    request.execute("zoomPip=1");
+                }
+                catch(IOException e){}
+                catch(JSONException je){}
+                pipIsZoomed = true;
+            } else {
+                try {
+                    //Zoom in on Main Picture
+                    request.execute("zoomPip=0");
+                }
+                catch(IOException e){}
+                catch(JSONException je){}
+                pipIsZoomed = false;
+            }
         }
     }
 

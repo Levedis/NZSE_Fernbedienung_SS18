@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
 
+import java.io.IOException;
 import java.nio.channels.Channel;
 import java.sql.Connection;
 
@@ -21,6 +22,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
+
+import org.json.JSONException;
 
 public class MainSettings extends AppCompatActivity {
 
@@ -37,6 +40,7 @@ public class MainSettings extends AppCompatActivity {
     EditText ipInput;
 
     private ConnectionHandler connect;
+    private HttpRequest request;
 
     public static String input = "";
 
@@ -52,6 +56,7 @@ public class MainSettings extends AppCompatActivity {
         ipInput = (EditText) findViewById(R.id.IPInput);
 
         connect = new ConnectionHandler();
+        request = new HttpRequest(input, 1000, true);
 
         loadIp();
         if(!input.equals("")){
@@ -85,11 +90,6 @@ public class MainSettings extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
     }
 
-    public void shutDown(View v){
-        finish();
-        System.exit(0);
-    }
-
     public void saveIp(){
         preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
         preferenceEditor = preferenceSettings.edit();
@@ -100,5 +100,16 @@ public class MainSettings extends AppCompatActivity {
     public void loadIp(){
         preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
         input = preferenceSettings.getString("IP Address", "");
+    }
+
+    public void powerOff(View v){
+        if(!input.equals("")){
+            try {
+                //Start Pip
+                request.execute("powerOff=1");
+            }
+                catch(IOException e){}
+                catch(JSONException je){}
+            }
     }
 }

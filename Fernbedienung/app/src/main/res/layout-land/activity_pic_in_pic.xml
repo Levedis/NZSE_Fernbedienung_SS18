@@ -57,6 +57,7 @@
         android:background="@drawable/x"
         android:elevation="0dp"
         android:text=""
+        android:onClick="togglePipZoom"
         app:layout_constraintEnd_toEndOf="@+id/PicInPicButton"
         app:layout_constraintStart_toEndOf="@+id/aspectRatioButton"
         app:layout_constraintTop_toTopOf="@+id/ReverseButton" />
