@@ -24,6 +24,9 @@ public class PicInPic extends AppCompatActivity {
     Boolean isZoomed = false;
     Boolean pipIsOn = false;
 
+    private String currentPip = "";
+    public static String currentMain = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,12 +98,31 @@ public class PicInPic extends AppCompatActivity {
     }
 
     public void pipChannelSelection(){
-        Log.i("TODO", "PiP Channel Select");
+        try{
+            currentPip = "64c";
+            request.execute("channelPip=" + currentPip);
+        }
+        catch(IOException e){}
+        catch(JSONException je){}
     }
 
     public void switchPip(View v){
-        Log.i("TODO", "Switch PiP and Main Picture");
+        if(!currentIp.equals("") && pipIsOn){
+            currentMain = ConnectionHandler.getCurrentChannel();
+            String tempSwap = "";
+            try {
+                //Switch PiP and Main
+                request.execute("channelPip=" + currentMain);
+                request.execute("channelMain=" + currentPip);
+                tempSwap = currentMain;
+                currentMain = currentPip;
+                ConnectionHandler.currentChannel = currentMain;
+                currentPip = tempSwap;
+            }
+            catch(IOException e){}
+            catch(JSONException je){}
+        }
     }
 
 
-}//End of PicInPic
+}   //End of PicInPic

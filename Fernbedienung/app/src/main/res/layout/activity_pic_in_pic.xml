@@ -36,6 +36,7 @@
         android:layout_marginStart="35dp"
         android:background="@drawable/reverse"
         android:text=""
+        android:onClick="switchPip"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PicInPicButton" />
 

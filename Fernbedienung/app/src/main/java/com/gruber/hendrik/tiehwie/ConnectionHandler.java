@@ -151,4 +151,8 @@ public class ConnectionHandler {
         currentIp = MainSettings.input;
 
     }
+
+    public static String getCurrentChannel(){
+        return currentChannel;
+    }
 }

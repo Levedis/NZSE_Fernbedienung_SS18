@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
 
         //ConnectionHander
         connect = new ConnectionHandler();
+
+        if(PersistenceHandler.channelList.size() == 0){
+            startActivity(new Intent(this, MainSettings.class));
+        }
     }
 
     public void buttonClick(View v) throws IOException, JSONException {

@@ -56,6 +56,9 @@ public class MainSettings extends AppCompatActivity {
         loadIp();
         if(!input.equals("")){
             ipInput.setText(input);
+            if(PersistenceHandler.channelList.size() == 0){
+                scanChannels();
+            }
         }
     }
 

@@ -32,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="63" column="51" lean-forward="false" selection-start-line="63" selection-start-column="51" selection-end-line="63" selection-end-column="51" />
+            <state relative-caret-position="491">
+              <caret line="79" column="55" lean-forward="false" selection-start-line="79" selection-start-column="55" selection-end-line="79" selection-end-column="55" />
               <folding>
                 <element signature="method#onConfigurationChanged#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#getButtons#0;class#MainActivity#0" expanded="false" />
@@ -49,10 +49,15 @@
       <file leaf-file-name="ConnectionHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/ConnectionHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="48" column="42" lean-forward="false" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="42" />
+            <state relative-caret-position="328">
+              <caret line="79" column="5" lean-forward="false" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#playPause#0;class#ConnectionHandler#0" expanded="false" />
+                <element signature="method#channelPlus#0;class#ConnectionHandler#0" expanded="false" />
+                <element signature="method#channelMinus#0;class#ConnectionHandler#0" expanded="false" />
+                <element signature="method#getChannelIndex#0;class#ConnectionHandler#0" expanded="false" />
+                <element signature="method#channelScan#0;class#ConnectionHandler#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -74,12 +79,14 @@
       <file leaf-file-name="MainSettings.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainSettings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="43" column="51" lean-forward="false" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
+            <state relative-caret-position="223">
+              <caret line="59" column="31" lean-forward="false" selection-start-line="59" selection-start-column="31" selection-end-line="59" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#changeIP#0;class#MainSettings#0" expanded="false" />
                 <element signature="method#getIp#0;class#MainSettings#0" expanded="false" />
+                <element signature="e#2377#2378#0" expanded="true" />
+                <element signature="e#2407#2408#0" expanded="true" />
                 <element signature="method#shutDown#0;class#MainSettings#0" expanded="false" />
                 <element signature="method#saveIp#0;class#MainSettings#0" expanded="false" />
                 <element signature="method#loadIp#0;class#MainSettings#0" expanded="false" />
@@ -88,14 +95,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PicInPic.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PicInPic.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/PicInPic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="75" column="46" lean-forward="false" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
+            <state relative-caret-position="323">
+              <caret line="111" column="33" lean-forward="false" selection-start-line="111" selection-start-column="33" selection-end-line="111" selection-end-column="33" />
               <folding>
-                <element signature="e#1074#1075#0" expanded="true" />
-                <element signature="e#1120#1121#0" expanded="true" />
+                <element signature="method#onCreate#0;class#PicInPic#0" expanded="false" />
+                <element signature="e#1154#1155#0" expanded="true" />
+                <element signature="e#1200#1201#0" expanded="true" />
+                <element signature="method#toggleZoom#0;class#PicInPic#0" expanded="false" />
+                <element signature="method#togglePip#0;class#PicInPic#0" expanded="false" />
+                <element signature="method#pipChannelSelection#0;class#PicInPic#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -2171,12 +2182,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/PersistenceHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main_settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/custom_toast.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainSettings.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/ConnectionHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_pic_in_pic.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_pic_in_pic.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/ConnectionHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/PicInPic.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainSettings.java" />
       </list>
     </option>
   </component>
@@ -2527,7 +2538,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="39" />
+      <option name="time" value="41" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2828,8 +2839,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pic_in_pic.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="36" lean-forward="true" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+        <state relative-caret-position="546">
+          <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2839,39 +2850,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_pic_in_pic.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="35" lean-forward="false" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+        <state relative-caret-position="383">
+          <caret line="45" column="35" lean-forward="false" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/PicInPic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="75" column="46" lean-forward="false" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
-          <folding>
-            <element signature="e#1074#1075#0" expanded="true" />
-            <element signature="e#1120#1121#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="43" column="51" lean-forward="false" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#changeIP#0;class#MainSettings#0" expanded="false" />
-            <element signature="method#getIp#0;class#MainSettings#0" expanded="false" />
-            <element signature="method#shutDown#0;class#MainSettings#0" expanded="false" />
-            <element signature="method#saveIp#0;class#MainSettings#0" expanded="false" />
-            <element signature="method#loadIp#0;class#MainSettings#0" expanded="false" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/PersistenceHandler.java">
@@ -2887,22 +2872,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/ConnectionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="48" column="42" lean-forward="false" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="42" />
+        <state relative-caret-position="328">
+          <caret line="79" column="5" lean-forward="false" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#playPause#0;class#ConnectionHandler#0" expanded="false" />
+            <element signature="method#channelPlus#0;class#ConnectionHandler#0" expanded="false" />
+            <element signature="method#channelMinus#0;class#ConnectionHandler#0" expanded="false" />
+            <element signature="method#getChannelIndex#0;class#ConnectionHandler#0" expanded="false" />
+            <element signature="method#channelScan#0;class#ConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="63" column="51" lean-forward="false" selection-start-line="63" selection-start-column="51" selection-end-line="63" selection-end-column="51" />
+        <state relative-caret-position="491">
+          <caret line="79" column="55" lean-forward="false" selection-start-line="79" selection-start-column="55" selection-end-line="79" selection-end-column="55" />
           <folding>
             <element signature="method#onConfigurationChanged#0;class#MainActivity#0" expanded="false" />
             <element signature="method#getButtons#0;class#MainActivity#0" expanded="false" />
             <element signature="method#mirrorScreen#0;class#MainActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/MainSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="59" column="31" lean-forward="false" selection-start-line="59" selection-start-column="31" selection-end-line="59" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#changeIP#0;class#MainSettings#0" expanded="false" />
+            <element signature="method#getIp#0;class#MainSettings#0" expanded="false" />
+            <element signature="e#2377#2378#0" expanded="true" />
+            <element signature="e#2407#2408#0" expanded="true" />
+            <element signature="method#shutDown#0;class#MainSettings#0" expanded="false" />
+            <element signature="method#saveIp#0;class#MainSettings#0" expanded="false" />
+            <element signature="method#loadIp#0;class#MainSettings#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gruber/hendrik/tiehwie/PicInPic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="111" column="33" lean-forward="false" selection-start-line="111" selection-start-column="33" selection-end-line="111" selection-end-column="33" />
+          <folding>
+            <element signature="method#onCreate#0;class#PicInPic#0" expanded="false" />
+            <element signature="e#1154#1155#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+            <element signature="method#toggleZoom#0;class#PicInPic#0" expanded="false" />
+            <element signature="method#togglePip#0;class#PicInPic#0" expanded="false" />
+            <element signature="method#pipChannelSelection#0;class#PicInPic#0" expanded="false" />
           </folding>
         </state>
       </provider>
