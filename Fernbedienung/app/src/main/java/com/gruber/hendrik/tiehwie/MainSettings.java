@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,10 +40,14 @@ public class MainSettings extends AppCompatActivity {
     Button resetFavs;
     EditText ipInput;
 
+    CountUpTimer countUp;
+
     private ConnectionHandler connect;
     private HttpRequest request;
 
     public static String input = "";
+    public Boolean isStandBy = false;
+    private Boolean isCounting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class MainSettings extends AppCompatActivity {
         resetFavs = (Button) findViewById(R.id.favoritesReset);
         ipInput = (EditText) findViewById(R.id.IPInput);
 
+
         connect = new ConnectionHandler();
         request = new HttpRequest(input, 1000, true);
 
@@ -65,6 +71,24 @@ public class MainSettings extends AppCompatActivity {
                 scanChannels();
             }
         }
+
+        //Create Timer for Power Off
+        countUp = new CountUpTimer();
+
+        powerButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(!isCounting){
+                    counter();
+                }
+                return false;
+            }
+        });
+    }
+
+    public void counter(){
+        isCounting = true;
+        countUp.startCounting();
     }
 
     public void changeIP(View v){
@@ -103,13 +127,38 @@ public class MainSettings extends AppCompatActivity {
     }
 
     public void powerOff(View v){
-        if(!input.equals("")){
-            try {
-                //Start Pip
-                request.execute("powerOff=1");
+        countUp.stopCounting();
+        isCounting = false;
+        long timer = countUp.getTime();
+        if(!input.equals("")) {
+            if (timer < 1) {
+                if (!input.equals("")) {
+                    if (!isStandBy) {
+                        try {
+                            //Start Pip
+                            request.execute("standby=1");
+                        } catch (IOException e) {
+                        } catch (JSONException je) {
+                        }
+                        isStandBy = true;
+                    } else {
+                        try {
+                            //Zoom in on Main Picture
+                            request.execute("standby=0");
+                        } catch (IOException e) {
+                        } catch (JSONException je) {
+                        }
+                        isStandBy = false;
+                    }
+                }
+            } else {
+                try {
+                    //Start Pip
+                    request.execute("powerOff=1");
+                } catch (IOException e) {
+                } catch (JSONException je) {
+                }
             }
-                catch(IOException e){}
-                catch(JSONException je){}
-            }
+        }
     }
 }
