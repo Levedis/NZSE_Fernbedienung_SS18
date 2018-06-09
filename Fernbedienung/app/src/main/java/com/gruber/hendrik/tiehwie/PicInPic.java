@@ -35,27 +35,30 @@ public class PicInPic extends AppCompatActivity {
         stopPip = (Button) findViewById(R.id.CancelButton);
         switchPip = (Button) findViewById(R.id.ReverseButton);
 
-        //Establish Connection for Requests
-        establishConnection();
+        getIp();
+
+        request = new HttpRequest(currentIp, 1000, true);
     }
 
-    private void establishConnection(){
-        request = new HttpRequest(currentIp, 10000, true);
+    private void getIp(){
+        currentIp = MainSettings.input;
     }
 
-    private void toggleZoom(View v){
+    public void toggleZoom(View v){
+        Log.i("IP", currentIp);
+
         if(!currentIp.equals("")){
             if(!isZoomed){
-                    try {
-                        //Zoom in on Main Picture
-                        request.execute("zoomMain=1");
-                    }
-                    catch(IOException e){}
-                    catch(JSONException je){}
-                    isZoomed = true;
+                try {
+                    //Start Pip
+                    request.execute("zoomMain=1");
+                }
+                catch(IOException e){}
+                catch(JSONException je){}
+                isZoomed = true;
             } else {
                 try {
-                    //Zoom out of Main Picture
+                    //Zoom in on Main Picture
                     request.execute("zoomMain=0");
                 }
                 catch(IOException e){}
@@ -65,7 +68,7 @@ public class PicInPic extends AppCompatActivity {
         }
     }
 
-    private void togglePip(View v){
+    public void togglePip(View v){
         if(!currentIp.equals("")){
             if(!pipIsOn){
                 try {
@@ -91,11 +94,11 @@ public class PicInPic extends AppCompatActivity {
         }
     }
 
-    private void pipChannelSelection(){
+    public void pipChannelSelection(){
         Log.i("TODO", "PiP Channel Select");
     }
 
-    private void switchPip(View v){
+    public void switchPip(View v){
         Log.i("TODO", "Switch PiP and Main Picture");
     }
 
