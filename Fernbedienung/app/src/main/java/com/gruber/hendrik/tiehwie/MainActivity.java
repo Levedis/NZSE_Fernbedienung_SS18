@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public static String lastChannel = "";
 
     private ConnectionHandler connect;
+    HttpRequest request;
 
     @Override
     //Get Buttons new when orientation is changed. Musst be done to work with orientation switching
@@ -75,10 +76,36 @@ public class MainActivity extends AppCompatActivity {
 
         //ConnectionHander
         connect = new ConnectionHandler();
+        ipConnect = MainSettings.input;
+        request = new HttpRequest(ipConnect, 1000, true);
 
         if(PersistenceHandler.channelList.size() == 0){
             startActivity(new Intent(this, MainSettings.class));
         }
+
+        //
+        // perform seek bar change listener event used for getting the progress value
+        volumeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChangedValue = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(!ipConnect.equals("")){
+                    try {
+                        //Volume Range 0 - 100
+                        progress = progress / 25;
+                        //Change Volume
+                        request.execute("volume=" + progress);
+                    }
+                    catch(IOException e){}
+                    catch(JSONException je){}
+                }
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
     }
 
     public void buttonClick(View v) throws IOException, JSONException {
@@ -138,5 +165,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    /*public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        Log.i("Progress", Integer.toString(progress));
+        if(!ipConnect.equals("")){
+            try {
+                //Change Volume
+                request.execute("volume=" + progress);
+            }
+            catch(IOException e){}
+            catch(JSONException je){}
+        }
+        //int progress = seekBar.getProgress();
+    }*/
 
 }   //End of File
