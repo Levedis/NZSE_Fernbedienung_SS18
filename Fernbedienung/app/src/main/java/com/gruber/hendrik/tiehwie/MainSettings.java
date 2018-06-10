@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-public class MainSettings extends AppCompatActivity {
+public class MainSettings extends MainActivity {
 
     //Persistence
     private SharedPreferences preferenceSettings;
@@ -65,9 +65,10 @@ public class MainSettings extends AppCompatActivity {
         request = new HttpRequest(input, 1000, true);
 
         loadIp();
+        loadChannels();
         if(!input.equals("")){
             ipInput.setText(input);
-            if(PersistenceHandler.channelList.size() == 0){
+            if(PersistenceHandler.channelList.size() == 0 && PersistenceHandler.channlName.size() == 0){
                 scanChannels();
             }
         }
@@ -85,6 +86,7 @@ public class MainSettings extends AppCompatActivity {
             }
         });
     }
+
 
     public void counter(){
         isCounting = true;
@@ -110,6 +112,7 @@ public class MainSettings extends AppCompatActivity {
 
     public void scanChannels(){
         ConnectionHandler.channelScan();
+        saveChannels();
         if(PersistenceHandler.channelList.size() != 0)
             startActivity(new Intent(this, MainActivity.class));
     }
@@ -124,6 +127,34 @@ public class MainSettings extends AppCompatActivity {
     public void loadIp(){
         preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
         input = preferenceSettings.getString("IP Address", "");
+    }
+
+    public void loadChannels(){
+        String list, name;
+        //Clear Both Lists
+        PersistenceHandler.channelList.clear();
+        PersistenceHandler.channlName.clear();
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        for(int i = 0; i < 33; i++){
+            //Get Values
+            list = preferenceSettings.getString("Channel ID #" + i, "");
+            name = preferenceSettings.getString("Channel Name #" + i, "");
+            //Add Values to Array
+            PersistenceHandler.channelList.add(list);
+            PersistenceHandler.channlName.add(name);
+        }
+    }
+
+    public void saveChannels(){
+        Log.i("Saving", "...");
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        for(int i = 0; i < PersistenceHandler.channelList.size(); i++){
+            preferenceEditor.putString("Channel ID #" + i, PersistenceHandler.channelList.get(i).toString());
+            preferenceEditor.putString("Channel Name #" + i, PersistenceHandler.channlName.get(i).toString());
+            preferenceEditor.commit();
+        }
+
     }
 
     public void powerOff(View v){

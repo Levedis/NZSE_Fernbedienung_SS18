@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ConnectionHandler connect;
     HttpRequest request;
+    PersistenceHandler pers;
+    MainSettings settings;
 
     @Override
     //Get Buttons new when orientation is changed. Musst be done to work with orientation switching
@@ -74,16 +76,27 @@ public class MainActivity extends AppCompatActivity {
         //Default Layout is right-handed-mode
         rightHanded = true;
 
+        //Load Last Channel
+        loadCurrentChannel();
+
         //ConnectionHander
         connect = new ConnectionHandler();
         ipConnect = MainSettings.input;
         request = new HttpRequest(ipConnect, 1000, true);
 
-        if(PersistenceHandler.channelList.size() == 0){
+
+        if(ipConnect.equals("")){
             startActivity(new Intent(this, MainSettings.class));
+        } else {
+            try {
+                request.execute("channelMain=" + lastChannel);
+            } catch (IOException e) {
+            } catch (JSONException je) {
+            }
         }
 
-        //
+
+
         // perform seek bar change listener event used for getting the progress value
         volumeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChangedValue = 0;
@@ -166,17 +179,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        Log.i("Progress", Integer.toString(progress));
-        if(!ipConnect.equals("")){
-            try {
-                //Change Volume
-                request.execute("volume=" + progress);
-            }
-            catch(IOException e){}
-            catch(JSONException je){}
-        }
-        //int progress = seekBar.getProgress();
-    }*/
+    public void saveCurrentChannel(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        preferenceEditor.putString("Current Channel", lastChannel);
+        preferenceEditor.commit();
+    }
+
+    public void loadCurrentChannel(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        lastChannel = preferenceSettings.getString("Current Channel", "");
+    }
 
 }   //End of File

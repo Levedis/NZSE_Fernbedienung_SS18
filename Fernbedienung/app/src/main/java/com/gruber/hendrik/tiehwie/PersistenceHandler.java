@@ -29,6 +29,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class PersistenceHandler{
 
     public static ArrayList<String> channelList = new ArrayList<>();
+    public static ArrayList<String> channlName = new ArrayList<>();
 
     public static void saveChannels(JSONObject channels){
 
@@ -45,6 +46,7 @@ public class PersistenceHandler{
                     String quality = finalObject.getString("quality");
                     String program = finalObject.getString("program");
                     String provider = finalObject.getString("provider");
+                    channlName.add(program);
                     channelList.add(channelName);
                 }
             }
@@ -52,6 +54,10 @@ public class PersistenceHandler{
         catch(JSONException ja){}
         //for(int i = 0; i < channelList.length; i++)
         //    Log.i(Integer.toString(i), channelList[i]);
+    }
+
+    public int getChannelListSize(){
+        return channelList.size();
     }
 
 

@@ -91,6 +91,7 @@ public class ConnectionHandler {
                     //Channel ++ Request sent to TV
                     request.execute("channelMain=" + nextChannel);
                     currentChannel = nextChannel;
+                    MainActivity.lastChannel = currentChannel;
                 }
                 catch(IOException e){}
                 catch(JSONException je){}
@@ -110,6 +111,7 @@ public class ConnectionHandler {
                     //Channel ++ Request sent to TV
                     request.execute("channelMain=" + nextChannel);
                     currentChannel = nextChannel;
+                    MainActivity.lastChannel = currentChannel;
                 } catch (IOException e) {
                 } catch (JSONException je) {
                 }
