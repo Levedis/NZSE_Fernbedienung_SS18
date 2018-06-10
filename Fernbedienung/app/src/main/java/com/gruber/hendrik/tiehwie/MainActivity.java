@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private Button channelMinusButton;
     private SeekBar volumeSlider;
 
+    String rightHandMode = "";
     private boolean rightHanded;
+
     public static String ipConnect = "";
     public static String lastChannel = "";
 
@@ -73,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
         //Get Buttons
         getButtons();
 
-        //Default Layout is right-handed-mode
-        rightHanded = true;
-
         //Load Last Channel
         loadCurrentChannel();
 
@@ -84,9 +83,19 @@ public class MainActivity extends AppCompatActivity {
         ipConnect = MainSettings.input;
         request = new HttpRequest(ipConnect, 1000, true);
 
+        //Load Mirror Mode
+        loadMirrorModes();
+        if(rightHanded){
+            rightHanded = false;
+            mirrorScreen(mirrorScreenLeft);
+        } else {
+            rightHanded = true;
+            mirrorScreen(mirrorScreenRight);
+        }
+
 
         if(ipConnect.equals("")){
-            startActivity(new Intent(this, MainSettings.class));
+            //startActivity(new Intent(this, MainSettings.class));
         } else {
             try {
                 request.execute("channelMain=" + lastChannel);
@@ -189,6 +198,28 @@ public class MainActivity extends AppCompatActivity {
     public void loadCurrentChannel(){
         preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
         lastChannel = preferenceSettings.getString("Current Channel", "");
+    }
+
+    public void saveMirrorMode(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        if(rightHanded){
+            rightHandMode = "true";
+        } else {
+            rightHandMode = "false";
+        }
+        preferenceEditor.putString("Mirror", rightHandMode);
+        preferenceEditor.commit();
+    }
+
+    public void loadMirrorModes(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        rightHandMode = preferenceSettings.getString("Mirror", "");
+        if(rightHandMode.equals("true")){
+            rightHanded = true;
+        } else {
+            rightHanded = false;
+        }
     }
 
 }   //End of File

@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-public class MainSettings extends MainActivity {
+public class MainSettings extends AppCompatActivity {
 
     //Persistence
     private SharedPreferences preferenceSettings;
