@@ -2,6 +2,7 @@ package com.gruber.hendrik.tiehwie;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,16 +58,24 @@ public class ChannelList extends AppCompatActivity {
                 String item = channelId.get(position);
                 if (!MainSettings.input.equals("")) {
                     try {
-                        request.execute("channelMain=" + item);
-                        ConnectionHandler.currentChannel = item;
-                        MainActivity.lastChannel = item;
+                        if(PicInPic.pipChannel){
+                            request.execute("channelPip=" + item);
+                            PicInPic.currentPip = item;
+                            PicInPic.pipChannel = false;
+                            finish();
+                        } else {
+                            request.execute("channelMain=" + item);
+                            ConnectionHandler.currentChannel = item;
+                            MainActivity.lastChannel = item;
+                        }
                     } catch (IOException e) {
                     } catch (JSONException je) {
                     }
                 }
             }
         });
-
     }
+
+
 
 }

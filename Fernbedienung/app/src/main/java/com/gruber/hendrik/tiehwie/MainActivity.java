@@ -75,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
         //Get Buttons
         getButtons();
 
-        //Load Last Channel
-        loadCurrentChannel();
-
         //ConnectionHander
         connect = new ConnectionHandler();
         lastChannel = ConnectionHandler.getCurrentChannel();
@@ -101,11 +98,13 @@ public class MainActivity extends AppCompatActivity {
             mirrorScreen(mirrorScreenRight);
         }
 
-
+        //Get Current Channel
+        loadCurrentChannel();
         if(ipConnect.equals("")){
             //startActivity(new Intent(this, MainSettings.class));
         } else {
             try {
+                lastChannel = ConnectionHandler.currentChannel;
                 request.execute("channelMain=" + lastChannel);
             } catch (IOException e) {
             } catch (JSONException je) {
