@@ -80,9 +80,17 @@ public class MainActivity extends AppCompatActivity {
 
         //ConnectionHander
         connect = new ConnectionHandler();
+        lastChannel = ConnectionHandler.getCurrentChannel();
         ipConnect = MainSettings.input;
         request = new HttpRequest(ipConnect, 1000, true);
+        if(!lastChannel.equals("")){
+            try{
+                request.execute("mainChannel=" + lastChannel);
+            }
+            catch(IOException io){}
+            catch(JSONException je){}
 
+        }
         //Load Mirror Mode
         loadMirrorModes();
         if(rightHanded){
@@ -184,8 +192,7 @@ public class MainActivity extends AppCompatActivity {
             getButtons();
             Log.i("Flipped: ", "Left");
         }
-
-
+        saveMirrorMode();
     }
 
     public void saveCurrentChannel(){

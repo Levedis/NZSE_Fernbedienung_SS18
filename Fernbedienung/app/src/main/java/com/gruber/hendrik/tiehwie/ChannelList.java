@@ -22,6 +22,7 @@ public class ChannelList extends AppCompatActivity {
     SearchView search;
     ListView channelList;
     ListView favoritesList;
+    CharSequence query;
 
     public ArrayList<String> channelId;
     public ArrayList<String> channelName;
@@ -37,6 +38,7 @@ public class ChannelList extends AppCompatActivity {
 
         search = (SearchView) findViewById(R.id.searchBar);
         channelList = (ListView) findViewById(R.id.channelList);
+        query = search.getQuery();      //Get content within searchview
 
         channelId = PersistenceHandler.channelList;
         channelName = PersistenceHandler.channlName;
@@ -56,6 +58,7 @@ public class ChannelList extends AppCompatActivity {
                 if (!MainSettings.input.equals("")) {
                     try {
                         request.execute("channelMain=" + item);
+                        ConnectionHandler.currentChannel = item;
                         MainActivity.lastChannel = item;
                     } catch (IOException e) {
                     } catch (JSONException je) {
@@ -64,10 +67,6 @@ public class ChannelList extends AppCompatActivity {
             }
         });
 
-
     }
-
-
-
 
 }

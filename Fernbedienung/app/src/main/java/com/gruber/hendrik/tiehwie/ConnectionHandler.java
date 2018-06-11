@@ -31,7 +31,7 @@ public class ConnectionHandler {
     private MainSettings settings = new MainSettings();
     private PersistenceHandler persistenceHandler = new PersistenceHandler();
 
-    public static String currentChannel = "8a";
+    public static String currentChannel = "";
     public static String currentIp = MainSettings.input;
 
     private int currentIndex = 0;
