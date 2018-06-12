@@ -32,11 +32,12 @@ public class PersistenceHandler{
     public static ArrayList<String> channlName = new ArrayList<>();
 
     public static void saveChannels(JSONObject channels){
-
         try {
             JSONArray parentArray = channels.getJSONArray("channels");
             if (parentArray.length() == 0) {
             } else {
+                channelList.clear();
+                channlName.clear();
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
 

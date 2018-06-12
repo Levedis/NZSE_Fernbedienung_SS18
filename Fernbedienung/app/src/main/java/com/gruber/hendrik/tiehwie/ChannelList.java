@@ -25,6 +25,8 @@ public class ChannelList extends AppCompatActivity {
     ListView favoritesList;
     CharSequence query;
 
+    public static String item = "";
+
     public static ArrayList<String> channelId;
     public static ArrayList<String> channelName;
 
@@ -55,7 +57,7 @@ public class ChannelList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String item = channelId.get(position);
+                item = channelId.get(position);
                 if (!MainSettings.input.equals("")) {
                     try {
                         if(PicInPic.pipChannel){

@@ -123,8 +123,6 @@ public class MainSettings extends AppCompatActivity {
 
     public void scanChannels(){
         PersistenceHandler.channelList.clear();
-        ChannelList.channelName.clear();
-        ChannelList.channelId.clear();
         ConnectionHandler.channelScan();
         saveChannels();
         if(PersistenceHandler.channelList.size() != 0)

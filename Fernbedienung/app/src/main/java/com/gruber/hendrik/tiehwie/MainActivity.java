@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar volumeSlider;
 
     String rightHandMode = "";
-    private boolean rightHanded = false;
+    private boolean rightHanded = true;
 
     int volumeValue = 0;
 
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonClick(View v) throws IOException, JSONException {
+
         if(v == settingsButton){
             startActivity(new Intent(this, MainSettings.class));
         }
@@ -214,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadMirrorModes(){
         preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
-        rightHandMode = preferenceSettings.getString("Mirror", "false");
+        rightHandMode = preferenceSettings.getString("Mirror", "true");
         if(rightHandMode.equals("true")){
             rightHanded = true;
         } else {
