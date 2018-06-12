@@ -36,7 +36,6 @@ public class PersistenceHandler{
         try {
             JSONArray parentArray = channels.getJSONArray("channels");
             if (parentArray.length() == 0) {
-                Log.i("Error: ", "No Students Found.");
             } else {
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);

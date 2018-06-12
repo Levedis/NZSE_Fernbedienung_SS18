@@ -25,8 +25,8 @@ public class ChannelList extends AppCompatActivity {
     ListView favoritesList;
     CharSequence query;
 
-    public ArrayList<String> channelId;
-    public ArrayList<String> channelName;
+    public static ArrayList<String> channelId;
+    public static ArrayList<String> channelName;
 
     HttpRequest request;
 

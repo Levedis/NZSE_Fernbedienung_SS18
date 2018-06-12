@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar volumeSlider;
 
     String rightHandMode = "";
-    private boolean rightHanded;
+    private boolean rightHanded = false;
+
+    int volumeValue = 0;
 
     public static String ipConnect = "";
     public static String lastChannel = "";
@@ -72,17 +74,18 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        connect = new ConnectionHandler();
+
         //Get Buttons
         getButtons();
 
         //ConnectionHander
-        connect = new ConnectionHandler();
-        lastChannel = ConnectionHandler.getCurrentChannel();
-        ipConnect = MainSettings.input;
+        loadIp();
+        loadChannel();
         request = new HttpRequest(ipConnect, 1000, true);
-        if(!lastChannel.equals("")){
+        if(!lastChannel.equals("") && !ipConnect.equals("")){
             try{
-                request.execute("mainChannel=" + lastChannel);
+                request.execute("channelMain=" + lastChannel);
             }
             catch(IOException io){}
             catch(JSONException je){}
@@ -98,20 +101,15 @@ public class MainActivity extends AppCompatActivity {
             mirrorScreen(mirrorScreenRight);
         }
 
-        //Get Current Channel
-        loadCurrentChannel();
-        if(ipConnect.equals("")){
-            //startActivity(new Intent(this, MainSettings.class));
-        } else {
-            try {
-                lastChannel = ConnectionHandler.currentChannel;
-                request.execute("channelMain=" + lastChannel);
-            } catch (IOException e) {
-            } catch (JSONException je) {
+        //Set Volume
+        if(!ipConnect.equals("")){
+            try{
+                loadVolume();
+                request.execute("volume=" + volumeValue);
             }
+            catch(IOException io){}
+            catch(JSONException je){}
         }
-
-
 
         // perform seek bar change listener event used for getting the progress value
         volumeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -122,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         //Volume Range 0 - 100
                         progress = progress / 25;
+                        volumeValue = progress;
                         //Change Volume
                         request.execute("volume=" + progress);
                     }
@@ -134,7 +133,16 @@ public class MainActivity extends AppCompatActivity {
 
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        saveMirrorMode();
+        saveChannel();
+        saveVolume();
+        saveIp();
     }
 
     public void buttonClick(View v) throws IOException, JSONException {
@@ -183,27 +191,13 @@ public class MainActivity extends AppCompatActivity {
             rightHanded = true;
             setContentView(R.layout.activity_main);
             getButtons();
-            Log.i("Flipped: ", "Right");
         }
         else{
             rightHanded = false;
             setContentView(R.layout.activity_main_left);
             getButtons();
-            Log.i("Flipped: ", "Left");
         }
         saveMirrorMode();
-    }
-
-    public void saveCurrentChannel(){
-        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
-        preferenceEditor = preferenceSettings.edit();
-        preferenceEditor.putString("Current Channel", lastChannel);
-        preferenceEditor.commit();
-    }
-
-    public void loadCurrentChannel(){
-        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
-        lastChannel = preferenceSettings.getString("Current Channel", "");
     }
 
     public void saveMirrorMode(){
@@ -220,12 +214,52 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadMirrorModes(){
         preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
-        rightHandMode = preferenceSettings.getString("Mirror", "");
+        rightHandMode = preferenceSettings.getString("Mirror", "false");
         if(rightHandMode.equals("true")){
             rightHanded = true;
         } else {
             rightHanded = false;
         }
+    }
+
+    public void saveChannel(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        lastChannel = ConnectionHandler.currentChannel;
+        preferenceEditor.putString("Last Channel", lastChannel);
+        preferenceEditor.commit();
+    }
+
+    public void loadChannel(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        lastChannel = preferenceSettings.getString("Last Channel", "8a");
+    }
+
+    public void saveVolume(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        preferenceEditor.putString("Volume", Integer.toString(volumeValue));
+        preferenceEditor.commit();
+    }
+
+    public void loadVolume(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        String temp = "";
+        temp = preferenceSettings.getString("Volume", "50");
+        volumeValue = Integer.parseInt(temp);
+    }
+
+    public void saveIp(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        ipConnect = MainSettings.input;
+        preferenceEditor.putString("IP Main", ipConnect);
+        preferenceEditor.commit();
+    }
+
+    public void loadIp(){
+        preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
+        ipConnect = preferenceSettings.getString("IP Main", "");
     }
 
 }   //End of File

@@ -31,7 +31,7 @@ public class ConnectionHandler {
     private MainSettings settings = new MainSettings();
     private PersistenceHandler persistenceHandler = new PersistenceHandler();
 
-    public static String currentChannel = "";
+    public static String currentChannel = "8a";
     public static String currentIp = MainSettings.input;
 
     private int currentIndex = 0;
@@ -48,6 +48,8 @@ public class ConnectionHandler {
     public static void establishConnection(String newIp){
         request = new HttpRequest(newIp, 1000, true);
     }
+
+
 
 
     //Timeshift Control
@@ -71,7 +73,6 @@ public class ConnectionHandler {
                 try {
                     //Play Request sent to TV with Timestamp
                     request.execute("timeShiftPlay=" + strLong);
-                    Log.i("Timer: ", strLong);
                 } catch (IOException e) {
                 } catch (JSONException je) {
                 }
@@ -87,7 +88,6 @@ public class ConnectionHandler {
                 currentIndex = getChannelIndex() + 1;
                 nextChannel = channels.get(currentIndex);
                 try {
-                    Log.i("Next", nextChannel);
                     //Channel ++ Request sent to TV
                     request.execute("channelMain=" + nextChannel);
                     currentChannel = nextChannel;
@@ -107,7 +107,6 @@ public class ConnectionHandler {
                 currentIndex = getChannelIndex() - 1;
                 nextChannel = channels.get(currentIndex);
                 try {
-                    Log.i("Next", nextChannel);
                     //Channel ++ Request sent to TV
                     request.execute("channelMain=" + nextChannel);
                     currentChannel = nextChannel;
@@ -116,7 +115,6 @@ public class ConnectionHandler {
                 } catch (JSONException je) {
                 }
             } else {
-                Log.i("Error", "Channel++ Overflow");
             }
         }
     }
@@ -124,10 +122,7 @@ public class ConnectionHandler {
     public int getChannelIndex(){
         channels = persistenceHandler.channelList;
         if(channels.contains(currentChannel)){
-            Log.i("Contains?", "yes");
             return channels.indexOf(currentChannel);
-        } else {
-            Log.i("Contains?", "no");
         }
         return 0;
     }

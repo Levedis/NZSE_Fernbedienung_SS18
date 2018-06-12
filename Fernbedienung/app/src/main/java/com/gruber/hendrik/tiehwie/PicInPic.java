@@ -90,6 +90,14 @@ public class PicInPic extends AppCompatActivity {
         }
     }
 
+    protected void onPause() {
+        super.onPause();
+
+        savePipZoom();
+        savePip();
+        saveMainZoom();
+    }
+
     private void getIp(){
         currentIp = MainSettings.input;
     }
@@ -133,7 +141,7 @@ public class PicInPic extends AppCompatActivity {
                 }
             } else {
                 try {
-                    //Zoom in on Main Picture
+                    //Close Pip
                     request.execute("showPip=0");
                 }
                 catch(IOException e){}

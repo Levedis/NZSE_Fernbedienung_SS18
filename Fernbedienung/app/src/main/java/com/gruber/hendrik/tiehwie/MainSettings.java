@@ -87,6 +87,15 @@ public class MainSettings extends AppCompatActivity {
         });
     }
 
+    protected void onPause() {
+        super.onPause();
+
+        saveIp();
+        saveChannels();
+        MainActivity.ipConnect = input;
+
+    }
+
 
     public void counter(){
         isCounting = true;
@@ -100,6 +109,8 @@ public class MainSettings extends AppCompatActivity {
         ConnectionHandler.currentIp = input;
         if(PersistenceHandler.channelList.size() != 0)
             startActivity(new Intent(this, MainActivity.class));    //Jump To Main Activity after done inputting IP
+        else
+            scanChannels();
     }
     public String getIp(){
         loadIp();
@@ -111,6 +122,9 @@ public class MainSettings extends AppCompatActivity {
     }
 
     public void scanChannels(){
+        PersistenceHandler.channelList.clear();
+        ChannelList.channelName.clear();
+        ChannelList.channelId.clear();
         ConnectionHandler.channelScan();
         saveChannels();
         if(PersistenceHandler.channelList.size() != 0)
@@ -146,7 +160,6 @@ public class MainSettings extends AppCompatActivity {
     }
 
     public void saveChannels(){
-        Log.i("Saving", "...");
         preferenceSettings = getPreferences(PREFERENCE_MODE_PRIVATE);
         preferenceEditor = preferenceSettings.edit();
         for(int i = 0; i < PersistenceHandler.channelList.size(); i++){
